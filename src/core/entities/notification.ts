@@ -1,7 +1,8 @@
+import { Replace } from '@core/helpers/replace';
 import { randomUUID } from 'crypto';
 import { Content } from './content';
 
-interface NotificationProperties {
+export interface NotificationProperties {
   recipientId: string;
   content: Content;
   category: string;
@@ -13,9 +14,15 @@ export class Notification {
   private id: string;
   private properties: NotificationProperties;
 
-  constructor(properties: NotificationProperties) {
-    this.id = randomUUID();
-    this.properties = properties;
+  constructor(
+    properties: Replace<NotificationProperties, { createdAt?: Date }>,
+    id?: string,
+  ) {
+    this.id = id ?? randomUUID();
+    this.properties = {
+      createdAt: properties.createdAt ?? new Date(),
+      ...properties,
+    };
   }
 
   public getId(): string {
