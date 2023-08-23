@@ -1,8 +1,9 @@
 import { randomUUID } from 'crypto';
+import { Content } from './content';
 
 interface NotificationProperties {
   recipientId: string;
-  content: string;
+  content: Content;
   category: string;
   readAt?: Date | null;
   createdAt: Date;
@@ -25,7 +26,7 @@ export class Notification {
     return this.properties.recipientId;
   }
 
-  public getContent(): string {
+  public getContent(): Content {
     return this.properties.content;
   }
 
@@ -49,7 +50,7 @@ export class Notification {
     this.properties.recipientId = recipientId;
   }
 
-  public setContent(content: string) {
+  public setContent(content: Content) {
     this.properties.content = content;
   }
 
